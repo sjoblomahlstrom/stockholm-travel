@@ -217,7 +217,8 @@ from threading import Lock
 
 traffic_cache = {
     "data": None,
-    "timestamp": 0
+    "timestamp": None,
+    "failed": False
 }
 
 traffic_lock = Lock()
@@ -229,15 +230,22 @@ def traffic_status():
     with traffic_lock:
 
         current_time = monotonic()
+        last_attempt = traffic_cache["timestamp"]
 
         if (
-            traffic_cache["data"] is not None
-            and current_time - traffic_cache["timestamp"] < 60
+            last_attempt is not None
+            and current_time - last_attempt < 60
         ):
+            if traffic_cache["failed"]:
+                return jsonify({
+                    "error": "Traffic information temporarily unavailable"
+                }), 503
+
             return jsonify(traffic_cache["data"])
 
-        try:
+        traffic_cache["timestamp"] = current_time
 
+        try:
             response = requests.get(
                 "https://deviations.integration.sl.se/v1/messages",
                 params={"future": "false"},
@@ -245,25 +253,25 @@ def traffic_status():
             )
 
             response.raise_for_status()
-
             data = response.json()
 
             if not isinstance(data, list):
-                return jsonify({
-                    "error": "Unexpected traffic data"
-                }), 502
+                raise ValueError("Unexpected traffic data")
 
             traffic_cache["data"] = data
-            traffic_cache["timestamp"] = monotonic()
+            traffic_cache["failed"] = False
 
             return jsonify(data)
 
         except (requests.RequestException, ValueError):
 
+            traffic_cache["failed"] = True
+
             return jsonify({
                 "error": "Could not retrieve SL traffic information"
             }), 502
-            
+
+
 # ==========================================
 # START LOCAL DEVELOPMENT SERVER
 # ==========================================
