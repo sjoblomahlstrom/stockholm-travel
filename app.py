@@ -1,3 +1,6 @@
+import sqlite3
+from api_quota import reserve_request
+
 
 import os
 import requests
@@ -72,7 +75,16 @@ def search_stations():
     }
 
     try:
+        if not reserve_request():
+            return jsonify({
+                "error": "Daily ResRobot API limit reached"
+            }), 429
+    except sqlite3.Error:
+        return jsonify({
+            "error": "API quota service unavailable"
+        }), 503
 
+    try:
         response = requests.get(
             BASE_URL + "/location.name",
             params=params,
@@ -125,7 +137,16 @@ def search_trips():
     }
 
     try:
+        if not reserve_request():
+            return jsonify({
+                "error": "Daily ResRobot API limit reached"
+            }), 429
+    except sqlite3.Error:
+        return jsonify({
+            "error": "API quota service unavailable"
+        }), 503
 
+    try:
         response = requests.get(
             BASE_URL + "/trip",
             params=params,
@@ -179,7 +200,16 @@ def search_departures():
     }
 
     try:
+        if not reserve_request():
+            return jsonify({
+                "error": "Daily ResRobot API limit reached"
+            }), 429
+    except sqlite3.Error:
+        return jsonify({
+            "error": "API quota service unavailable"
+        }), 503
 
+    try:
         response = requests.get(
             BASE_URL + "/departureBoard",
             params=params,

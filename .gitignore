@@ -20,3 +20,6 @@ venv/
 # Temporary system files
 .DS_Store
 Thumbs.db
+
+# Local API quota database
+api_quota.db*
