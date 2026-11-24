@@ -1,0 +1,631 @@
+
+/* ==========================================
+   STOCKHOLM TRAVEL
+   Reverse Engineering Project 2026
+   ========================================== */
+
+/* General settings */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #151515;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible {
+    outline: 3px solid #007ba7;
+    outline-offset: 3px;
+}
+
+/* School project notice */
+
+.project-notice {
+    background: #fff3cd;
+    color: #664d03;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* Top navigation */
+
+.top-bar {
+    background: #14181c;
+    color: white;
+    padding: 13px 0;
+}
+
+.top-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-bar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 25px;
+    font-size: 14px;
+}
+
+/* Main navigation */
+
+.main-header {
+    background: #007ba7;
+    color: white;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    min-height: 100px;
+}
+
+.logo {
+    border: 3px solid white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.search-button {
+    margin-left: auto;
+    background: transparent;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+/* AIK background */
+
+.hero {
+    background-color: #080808;
+    background-image: url("aik.png");
+    background-size: auto 280px;
+    background-position: center 20px;
+    background-repeat: no-repeat;
+    padding: 330px 0 30px;
+    border-bottom: 5px solid #ffd700;
+}
+
+/* Journey planner */
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.tabs button {
+    background: #007ba7;
+    color: white;
+    border: none;
+    padding: 16px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0;
+}
+
+.tabs button.active {
+    background: #eff0f1;
+    color: black;
+    text-decoration: underline;
+}
+
+.tabs button:hover {
+    filter: brightness(0.9);
+}
+
+.journey-box {
+    background: #eff0f1;
+    padding: 25px 30px 30px;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.journey-box h1 {
+    text-align: center;
+    font-size: 32px;
+    margin: 0 0 25px;
+}
+
+.journey-fields {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.input-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    height: 44px;
+    padding: 10px;
+    border: 2px solid #747980;
+    border-radius: 4px;
+    background: white;
+}
+
+.input-group input:focus {
+    outline: 2px solid #007ba7;
+}
+
+#swap {
+    background: transparent;
+    border: none;
+    color: #007ba7;
+    font-size: 28px;
+    height: 44px;
+}
+
+#swap:hover {
+    color: #151515;
+}
+
+/* Journey search button */
+
+#travel-search {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: #007ba7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#travel-search:hover {
+    background: #005d80;
+}
+
+#travel-search:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Journey results */
+
+#journey-results:not(:empty) {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-left: 5px solid #007ba7;
+    border-radius: 4px;
+}
+
+#journey-results p {
+    margin: 10px 0;
+}
+
+#journey-results p:first-child {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Journey and departure cards */
+
+.trip-card {
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    color: #111111;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    overflow-wrap: anywhere;
+}
+
+.trip-time {
+    font-size: 28px;
+    font-weight: bold;
+    color: #007ba7;
+    margin-bottom: 12px;
+}
+
+.trip-leg {
+    border-left: 4px solid #007ba7;
+    background: #f4f6f8;
+    padding: 12px 16px;
+    margin-top: 15px;
+    border-radius: 4px;
+}
+
+.trip-leg h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
+.trip-leg p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* ==========================================
+   LIVE TRAFFIC INFORMATION
+   ========================================== */
+
+.traffic-section {
+    padding-top: 65px;
+    padding-bottom: 65px;
+}
+
+.traffic-section h2 {
+    text-align: center;
+    font-size: 30px;
+    margin: 0 0 20px;
+}
+
+#last-updated {
+    font-size: 14px;
+    color: #555555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.traffic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+}
+
+/* Clickable traffic cards */
+
+.traffic-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    min-height: 76px;
+    padding: 18px 20px;
+    background: #ffffff;
+    color: #151515;
+    border: 1px solid #d6dce1;
+    border-left: 6px solid #007ba7;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition:
+        background 0.2s,
+        box-shadow 0.2s,
+        transform 0.2s;
+}
+
+.traffic-card:hover {
+    background: #f0f7fa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.traffic-card[aria-expanded="true"] {
+    background: #eaf5fa;
+    outline: 2px solid #007ba7;
+    outline-offset: 1px;
+}
+
+.traffic-card strong {
+    font-size: 17px;
+}
+
+.traffic-card span {
+    font-size: 14px;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+/* Transport colours */
+
+.traffic-card[data-traffic="metro-blue"] {
+    border-left-color: #0078c8;
+}
+
+.traffic-card[data-traffic="metro-red"] {
+    border-left-color: #d52335;
+}
+
+.traffic-card[data-traffic="metro-green"] {
+    border-left-color: #168a43;
+}
+
+.traffic-card[data-traffic="train"] {
+    border-left-color: #c21875;
+}
+
+.traffic-card[data-traffic="tram"] {
+    border-left-color: #7851a9;
+}
+
+.traffic-card[data-traffic="bus"] {
+    border-left-color: #555555;
+}
+
+.traffic-card[data-traffic="ship"] {
+    border-left-color: #008b95;
+}
+
+/* Traffic status */
+
+.traffic-status {
+    color: #555555;
+}
+
+.status-good {
+    color: #16834b;
+}
+
+.status-warning {
+    color: #9a4b0b;
+    font-weight: bold;
+}
+
+/* Traffic details panel */
+
+#traffic-details[hidden] {
+    display: none;
+}
+
+#traffic-details {
+    margin-top: 25px;
+    padding: 25px;
+    background: #f4f6f8;
+    border: 1px solid #d6dce1;
+    border-radius: 10px;
+}
+
+#traffic-details-title {
+    font-size: 24px;
+    margin: 0 0 15px;
+}
+
+/* Close details button */
+
+#close-traffic-details {
+    background: #007ba7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#close-traffic-details:hover {
+    background: #005d80;
+}
+
+/* Scrollable traffic messages */
+
+#traffic-messages {
+    max-height: 550px;
+    overflow-y: auto;
+    padding: 4px 12px 4px 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #aeb8c2 #e5e9ed;
+}
+
+#traffic-messages .trip-card {
+    margin: 0 0 12px;
+    border-left: 4px solid #007ba7;
+    padding: 18px 20px;
+}
+
+#traffic-messages .trip-card h3 {
+    font-size: 18px;
+    margin: 0 0 12px;
+}
+
+#traffic-messages .trip-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 8px 0;
+    white-space: pre-line;
+}
+
+#traffic-messages .trip-card p:first-of-type {
+    color: #007ba7;
+    font-weight: bold;
+}
+
+/* Traffic data source */
+
+.traffic-source {
+    margin-top: 22px;
+    color: #666666;
+    font-size: 13px;
+}
+
+/* Footer */
+
+footer {
+    background: #101010;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    font-size: 14px;
+    border-top: 4px solid #ffd700;
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE LAYOUT
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    .top-content {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .navigation {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    nav {
+        gap: 15px;
+    }
+
+    nav a {
+        font-size: 16px;
+    }
+
+    .hero {
+        background-size: auto 180px;
+        background-position: center 15px;
+        padding-top: 220px;
+    }
+
+    .journey-fields {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .traffic-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .traffic-card {
+        flex-wrap: wrap;
+        min-height: 70px;
+        padding: 15px;
+    }
+
+    .traffic-card strong {
+        font-size: 16px;
+    }
+
+    .traffic-card span {
+        font-size: 13px;
+        text-align: left;
+    }
+
+    .tabs button {
+        padding: 14px 20px;
+        font-size: 16px;
+    }
+
+    .journey-box {
+        padding: 20px;
+    }
+
+    .journey-box h1 {
+        font-size: 26px;
+    }
+
+    .traffic-section {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .traffic-section h2 {
+        font-size: 26px;
+    }
+
+    #traffic-details {
+        padding: 15px;
+    }
+
+    #traffic-messages {
+        max-height: 450px;
+        padding-right: 8px;
+    }
+
+    #journey-results:not(:empty) {
+        padding: 12px;
+    }
+
+    .trip-card {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .tabs button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .traffic-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .journey-box {
+        padding: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .traffic-card {
+        transition: none;
+    }
+
+    .traffic-card:hover {
+        transform: none;
+    }
+}

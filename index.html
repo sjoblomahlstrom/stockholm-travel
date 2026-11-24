@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Stockholm Travel - School Project</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="/aik.png">
+</head>
+<body>
+
+    <!-- School project notice -->
+    <div class="project-notice">
+        Inofficiellt skolprojekt – inte SL:s officiella hemsida
+    </div>
+
+    <!-- Top navigation -->
+    <div class="top-bar">
+        <div class="container top-content">
+            <div>
+                <a href="#">Privat</a>
+                <a href="#">Företag</a>
+            </div>
+            <div>
+                <a href="#">English</a>
+                <a href="#">Teckenspråk</a>
+                <a href="#">Lättläst</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main navigation -->
+    <header class="main-header">
+        <div class="container navigation">
+
+            <div class="logo">ST</div>
+
+            <nav>
+                <a href="#journey">Reseplanering</a>
+                <a href="#">Biljetter</a>
+                <a href="#">Kundservice</a>
+                <a href="#traffic">Aktuellt</a>
+            </nav>
+
+            <button class="search-button">⌕ Sök</button>
+
+        </div>
+    </header>
+
+    <!-- Journey planner -->
+    <section class="hero" id="journey">
+        <div class="container">
+
+            <div class="tabs">
+
+                <button id="journey-tab" class="active">
+                    Sök resa
+                </button>
+
+                <button id="departure-tab">
+                    Sök avgångar
+                </button>
+
+            </div>
+
+            <div class="journey-box">
+
+                <h1>Vart vill du åka?</h1>
+
+                <div class="journey-fields">
+
+                    <div class="input-group">
+                        <label for="from">Från</label>
+                        <input type="text" id="from"
+                               autocomplete="off">
+                    </div>
+
+                    <button id="swap" aria-label="Byt riktning">
+                        ⇆
+                    </button>
+
+                    <div class="input-group">
+                        <label for="to">Till</label>
+                        <input type="text" id="to"
+                               autocomplete="off">
+                    </div>
+
+                </div>
+
+                <div id="journey-results"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Live traffic information -->
+    <section class="traffic-section container" id="traffic">
+
+        <h2>Trafikläget just nu</h2>
+
+        <p id="last-updated" aria-live="polite">
+            Trafikinformation har ännu inte hämtats.
+        </p>
+
+        <div class="traffic-grid">
+
+            <!-- Blue metro line -->
+            <button type="button"
+                    class="traffic-card"
+                    data-traffic="metro-blue"
+                    aria-expanded="false"
+                    aria-controls="traffic-details">
+
+                <strong>Ⓣ Blå linjen</strong>
+
+                <span class="traffic-status">
+                    Väntar på trafikdata
+                </span>
+
+            </button>
+
+            <!-- Tram -->
+            <button type="button"
+                    class="traffic-card"
+                    data-traffic="tram"
+                    aria-expanded="false"
+                    aria-controls="traffic-details">
+
+                <strong>Spårvagn/lokalbana</strong>
+
+                <span class="traffic-status">
+                    Väntar på trafikdata
+                </span>
+
+            </button>
+
+            <!-- Red metro line -->
+            <button type="button"
+                    class="traffic-card"
+                    data-traffic="metro-red"
+                    aria-expanded="false"
+                    aria-controls="traffic-details">
+
+                <strong>Ⓣ Röda linjen</strong>
+
+                <span class="traffic-status">
+                    Väntar på trafikdata
+                </span>
+
+            </button>
+
+            <!-- Bus -->
+            <button type="button"
+                    class="traffic-card"
+                    data-traffic="bus"
+                    aria-expanded="false"
+                    aria-controls="traffic-details">
+
+                <strong>Buss</strong>
+
+                <span class="traffic-status">
+                    Väntar på trafikdata
+                </span>
+
+            </button>
+
+            <!-- Green metro line -->
+            <button type="button"
+                    class="traffic-card"
+                    data-traffic="metro-green"
+                    aria-expanded="false"
+                    aria-controls="traffic-details">
+
+                <strong>Ⓣ Gröna linjen</strong>
+
+                <span class="traffic-status">
+                    Väntar på trafikdata
+                </span>
+
+            </button>
+
+            <!-- Ferry -->
+            <button type="button"
+                    class="traffic-card"
+                    data-traffic="ship"
+                    aria-expanded="false"
+                    aria-controls="traffic-details">
+
+                <strong>Båt</strong>
+
+                <span class="traffic-status">
+                    Väntar på trafikdata
+                </span>
+
+            </button>
+
+            <!-- Commuter train -->
+            <button type="button"
+                    class="traffic-card"
+                    data-traffic="train"
+                    aria-expanded="false"
+                    aria-controls="traffic-details">
+
+                <strong>Pendeltåg</strong>
+
+                <span class="traffic-status">
+                    Väntar på trafikdata
+                </span>
+
+            </button>
+
+        </div>
+
+        <!-- Detailed traffic messages -->
+        <div id="traffic-details" hidden>
+
+            <h3 id="traffic-details-title">
+                Trafikmeddelanden
+            </h3>
+
+            <button type="button" id="close-traffic-details">
+                Stäng
+            </button>
+
+            <div id="traffic-messages"></div>
+
+        </div>
+
+        <p class="traffic-source">
+            Datakälla: Trafiklab / SL Deviations API
+        </p>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Stockholm Travel – Reverse Engineering Project 2026</p>
+        <p>Unofficial educational project.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

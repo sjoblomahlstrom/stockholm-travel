@@ -1,0 +1,22 @@
+# API keys and environment variables
+.env
+.env.*
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# Backup files
+*.backup
+*.bak
+
+# Editor settings
+.vscode/
+
+# Temporary system files
+.DS_Store
+Thumbs.db
